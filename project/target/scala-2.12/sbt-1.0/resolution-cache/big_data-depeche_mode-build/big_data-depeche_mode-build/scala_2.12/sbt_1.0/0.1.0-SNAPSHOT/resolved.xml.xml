@@ -4,7 +4,7 @@
 		module="big_data-depeche_mode-build"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20190408180939"
+		publication="20190408182826"
 		e:sbtVersion="1.0" e:scalaVersion="2.12"
 	>
 		<description>
