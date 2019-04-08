@@ -4,7 +4,7 @@
 		module="big_data-depeche_mode-$sources"
 		revision="0.1"
 		status="integration"
-		publication="20190408174350"
+		publication="20190408180949"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
