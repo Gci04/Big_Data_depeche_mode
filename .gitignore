@@ -1,3 +1,23 @@
 
 .idea/workspace.xml
 .idea/workspace.xml
+.idea/modules/Big_Data[depeche_mode].iml
+.idea/modules/Big_Data[depeche_mode].iml
+.idea/sbt.xml
+.idea/workspace.xml
+target/scala-2.12/classes/Epinions$.class
+target/scala-2.12/classes/Epinions.class
+target/scala-2.12/resolution-cache/default/big_data-depeche_mode-$sources/0.1/resolved.xml.properties
+target/scala-2.12/resolution-cache/default/big_data-depeche_mode-$sources/0.1/resolved.xml.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-compile-internal.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-compile.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-optional.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-plugin.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-pom.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-provided.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-runtime-internal.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-runtime.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-scala-tool.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-test-internal.xml
+target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-test.xml
+target/streams/$global/updateClassifiers/$global/streams/out
