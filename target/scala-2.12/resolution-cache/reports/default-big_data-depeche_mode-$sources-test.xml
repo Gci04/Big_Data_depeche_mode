@@ -7,7 +7,7 @@
 		revision="0.1"
 		conf="test"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, pom, scala-tool"
-		date="20190408171811"/>
+		date="20190408174350"/>
 	<dependencies>
 		<module organisation="com.github.fommil.netlib" name="netlib-native_ref-linux-armhf">
 			<revision name="1.1" status="release" pubdate="20131012031624" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="172">
@@ -1735,7 +1735,7 @@
 		</module>
 		<module organisation="org.apache.curator" name="curator-recipes">
 			<revision name="2.6.0" status="release" pubdate="20140708070148" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="109">
-				<license name="The Apache Software License, Version 2.0" url="file:///Users/gcinizwedlamini/Documents/GitHub/Big_Data[depeche_mode]/LICENSE"/>
+				<license name="The Apache Software License, Version 2.0" url="file:///Users/gcinizwedlamini/Documents/GitHub/Big_Data[depeche_mode]/Big_Data-depeche_mode-/LICENSE"/>
 				<metadata-artifact status="no" details="" size="13579" time="0" location="/Users/gcinizwedlamini/.ivy2/cache/org.apache.curator/curator-recipes/ivy-2.6.0.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/curator/curator-recipes/2.6.0/curator-recipes-2.6.0.pom"/>
 				<caller organisation="default" name="big_data-depeche_mode-$sources" conf="test, compile, runtime" rev="2.6.0" rev-constraint-default="2.6.0" rev-constraint-dynamic="2.6.0" callerrev="0.1"/>
 				<artifacts>
@@ -1759,7 +1759,7 @@
 		</module>
 		<module organisation="org.apache.curator" name="curator-framework">
 			<revision name="2.6.0" status="release" pubdate="20140708070112" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="37">
-				<license name="The Apache Software License, Version 2.0" url="file:///Users/gcinizwedlamini/Documents/GitHub/Big_Data[depeche_mode]/LICENSE"/>
+				<license name="The Apache Software License, Version 2.0" url="file:///Users/gcinizwedlamini/Documents/GitHub/Big_Data[depeche_mode]/Big_Data-depeche_mode-/LICENSE"/>
 				<metadata-artifact status="no" details="" size="13427" time="0" location="/Users/gcinizwedlamini/.ivy2/cache/org.apache.curator/curator-framework/ivy-2.6.0.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.pom"/>
 				<caller organisation="default" name="big_data-depeche_mode-$sources" conf="test, compile, runtime" rev="2.6.0" rev-constraint-default="2.6.0" rev-constraint-dynamic="2.6.0" callerrev="0.1"/>
 				<artifacts>
@@ -1771,7 +1771,7 @@
 		</module>
 		<module organisation="org.apache.curator" name="curator-client">
 			<revision name="2.6.0" status="release" pubdate="20140708070047" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="65">
-				<license name="The Apache Software License, Version 2.0" url="file:///Users/gcinizwedlamini/Documents/GitHub/Big_Data[depeche_mode]/LICENSE"/>
+				<license name="The Apache Software License, Version 2.0" url="file:///Users/gcinizwedlamini/Documents/GitHub/Big_Data[depeche_mode]/Big_Data-depeche_mode-/LICENSE"/>
 				<metadata-artifact status="no" details="" size="13474" time="0" location="/Users/gcinizwedlamini/.ivy2/cache/org.apache.curator/curator-client/ivy-2.6.0.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/curator/curator-client/2.6.0/curator-client-2.6.0.pom"/>
 				<caller organisation="default" name="big_data-depeche_mode-$sources" conf="test, compile, runtime" rev="2.6.0" rev-constraint-default="2.6.0" rev-constraint-dynamic="2.6.0" callerrev="0.1"/>
 				<artifacts>
