@@ -25,5 +25,6 @@ target/streams/$global/updateClassifiers/$global/streams/out
 *.iws
 *.iml
 *.ipr
-.idea/
+.idea/*
 *.xml
+.idea/workspace.xml
