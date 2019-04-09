@@ -21,3 +21,9 @@ target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$source
 target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-test-internal.xml
 target/scala-2.12/resolution-cache/reports/default-big_data-depeche_mode-$sources-test.xml
 target/streams/$global/updateClassifiers/$global/streams/out
+.idea
+*.iws
+*.iml
+*.ipr
+.idea/
+*.xml
