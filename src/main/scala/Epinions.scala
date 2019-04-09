@@ -12,45 +12,51 @@ object Epinions {
 
     Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
 
+//    create spark session
+    val spark = SparkSession
+      .builder()
+      .appName("Epinions.com")
+      .config("spark.master", "local")
+      .getOrCreate()
+
+//    read train and test data from program argument
+
+    val path_train = args(0)
+    val path_test = args(1)
+
+    val data = read_data(path_train, spark)
+    val test = read_data(path_test, spark).repartition(10)
+
+    println("---successful read of data---")
+
+    val batch_size = 500
+    val batches =  partition(data, batch_size)
+
+    println("---successful partition of data---")
+
   }
+
   def read_data(path: String, spark: SparkSession): RDD[(Int, Int)] = {
     spark.read.format("csv")
-      // the original data is store in CSV format
-      // header: source_node, destination_node
-      // here we read the data from CSV and export it as RDD[(Int, Int)],
-      // i.e. as RDD of edges
       .option("header", "true")
-      // State that the header is present in the file
       .schema(StructType(Array(
       StructField("source_node", IntegerType, false),
-      StructField("destination_node", IntegerType, false)
-    )))
-      // Define schema of the input data
+      StructField("destination_node", IntegerType, false))))
       .load(path)
-      // Read the file as DataFrame
       .rdd.map(row => (row.getAs[Int](0), row.getAs[Int](1)))
-    // Interpret DF as RDD
   }
-  def estimate_gradients_for_edge(
-                                   source: Int,
-                                   destination: Int,
-                                   emb_in: DenseMatrix[Float],
-                                   emb_out: DenseMatrix[Float],
-                                 ) = {
+
+  def partition(data: RDD[(Int, Int)], batch_size: Int) = {
+    " "
+  }
+
+  def estimate_gradients_for_edge(source: Int,destination: Int,emb_in: DenseMatrix[Float],emb_out: DenseMatrix[Float]) = {
 
     val in = emb_in(::, source)
     val out = emb_out(::, destination)
+  }
 
+  def get_top(source: Int, top_k: Int) = {
 
-    /*
-     * Estimate gradients
-     */
-
-    // return a tuple
-    // Tuple((Int, DenseVector), (Int, DenseVector))
-    // this tuple contains sparse gradients
-    // in_grads is vector of gradients for
-    // a node with id = source
-//    ((source, in_grads), (destination, out_grads))
   }
 }
