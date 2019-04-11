@@ -31,3 +31,4 @@ target/streams/$global/updateClassifiers/$global/streams/out
 .idea/workspace.xml
 .idea/workspace.xml
 .idea/workspace.xml
+.DS_Store
