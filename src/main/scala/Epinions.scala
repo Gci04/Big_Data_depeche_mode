@@ -40,7 +40,7 @@ object Epinions {
     println("---successful read of data---")
 
     val batch_size = 500
-    val batches =  create_batches(data, batch_size)
+    val batches = create_batches(data, batch_size)
 
     println("---successful partition of data---")
 
@@ -48,7 +48,7 @@ object Epinions {
     //create and initialize embedding matrices
     val n_nodes = 40334
     val embedding_size = 50
-    var incoming_embedding =embeddingMatrix(embedding_size,n_nodes)
+    var incoming_embedding = embeddingMatrix(embedding_size,n_nodes)
     var outgoing_embeding = embeddingMatrix(embedding_size,n_nodes)
 
     var neg_samples = 20
