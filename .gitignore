@@ -31,3 +31,6 @@ src/main/java/.DS_Store
 target/scala-2.12/classes/Epinions$.class
 target/scala-2.12/classes/Epinions.class
 .idea/workspace.xml
+target/scala-2.12/classes/Epinions$.class
+target/scala-2.12/classes/*.class
+.idea/workspace.xml

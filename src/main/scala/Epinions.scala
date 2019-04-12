@@ -54,7 +54,7 @@ object Epinions {
     var neg_samples = 20
     //Start train
     for (i <- 1 to iterations){
-      for (batch in batches){
+      for (batch <- batches){
         var emb_in_broadcast = sprk_contenxt.broadcast(incoming_embedding)
         var emb_out_broadcast = sprk_contenxt.broadcast(outgoing_embeding)
 
@@ -87,23 +87,29 @@ object Epinions {
   }
 
   def create_batches(data: RDD[(Int, Int)], batch_size: Int) = {
-    " "
-  }
-
-
-  def estimate_gradients_for_edge(source: Int,destination: Int,emb_in: DenseMatrix[Float],emb_out: DenseMatrix[Float]) = {
-
-
-    val in = emb_in(::, source)
-    val out = emb_out(::, destination)
-
-    ((source, in_grads), (destination, out_grads))
-  }
-
-  def get_top(source: Int, top_k: Int) = {
-
+    // switch positions to have index as key RDD[(key, (start,destination))]. Random split and RDD.sample can also be used
+    val indexed = data.zipWithIndex().map(r => ((r._2 / batch_size).toInt, r._1))
+    val tot_batches = (indexed.count()/batch_size).toInt
+    //do not return all batches all at once but yield or generate each batch per iteration in the gradient descent when needed
+    for (i <- 0 until tot_batches)
+      yield indexed.filter(_._1 == i).map(_._2)
   }
 }
+
+//
+//  def estimate_gradients_for_edge(source: Int,destination: Int,emb_in: DenseMatrix[Float],emb_out: DenseMatrix[Float]) = {
+//
+//
+//    val in = emb_in(::, source)
+//    val out = emb_out(::, destination)
+//
+//    ((source, in_grads), (destination, out_grads))
+//  }
+//
+//  def get_top(source: Int, top_k: Int) = {
+//    " "
+//  }
+//}
 
 object Network{
   def gradients(): Unit ={
@@ -114,7 +120,7 @@ object Network{
   }
 
   def sigma(x:Double): Double ={
-    1. / (1. + Math.exp(-x))
+    1 / (1 + Math.exp(-x))
   }
   def loss (x:Double) = {
     -log(sigma(x))
