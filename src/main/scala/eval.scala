@@ -127,4 +127,30 @@ def top_ten_to_nodes_representation (top_ten_overall : Array[((Int,Int),Double)]
 // println(top_ten_in_nodes_representation.map(x=>(x._1,'['+x._2.mkString(",")+']')).mkString("\n"))
 
 //------------------------------------------------------------------------------------------------------------------------
+// INITIAL DATA INTO COMPACT FORMAT
+// function for representation nodes neighbors in compact format
+def edges_to_nodes_representation (edges : Array[(Int,Int)]) : Array[(Int, Array[Int])] = {
+  // initializing result for nodes representation
+  var edges_nodes_representation : Array[(Int, Array[Int])] = Array()
+  // concatenate all nodes
+  var set_of_nodes = edges.map(_._1) ++ edges.map(_._2)
+  // iterating over set of unique nodes
+  for (node <- set_of_nodes.distinct) {
+    // initializing neighbors for selected node
+    var node_neighbors : Array[Int] = Array()
+    // concat neighbors into one array
+    var int_null : Int = null.asInstanceOf[Int]
+    node_neighbors ++= edges.map(x => if (x._1==node) x._2 else int_null).filterNot(_==int_null)
+    node_neighbors ++= edges.map(x => if (x._2==node) x._1 else int_null).filterNot(_==int_null)
+    // update resulting array with selected node's neighbors
+    edges_nodes_representation :+= (node, node_neighbors)
+  }
+
+  return (edges_nodes_representation)
+}
+var edges = Array((0,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(9,8),(3,6))
+var edges_nodes_representation = edges_to_nodes_representation(edges)
+println(edges_nodes_representation.map(x=>(x._1,'['+x._2.mkString(",")+']')).mkString("\n"))
+
+//------------------------------------------------------------------------------------------------------------------------
 // PERFORMING DEFINED STEPS IN A SEQUENCE
