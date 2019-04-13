@@ -8,6 +8,8 @@ import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
 import breeze.linalg.{DenseMatrix, DenseVector}
 import breeze.numerics.log
 import org.apache.spark.mllib.random.UniformGenerator
+import scala.util.control.Breaks._
+
 
 object Epinions {
   def main(args: Array[String]) {
@@ -32,6 +34,7 @@ object Epinions {
     val iterations = args(2).toInt
     //learning rate
     val alpha = args(3).toDouble
+    val top_k = 10
 
 
     val data = read_data(path_train, spark)
@@ -48,24 +51,45 @@ object Epinions {
     //create and initialize embedding matrices
     val n_nodes = 40334
     val embedding_size = 50
-    var incoming_embedding =embeddingMatrix(embedding_size,n_nodes)
+    var incoming_embedding = embeddingMatrix(embedding_size,n_nodes)
     var outgoing_embeding = embeddingMatrix(embedding_size,n_nodes)
 
     var neg_samples = 20
     //Start train
-    for (i <- 1 to iterations){
-      for (batch <- batches){
-        var emb_in_broadcast = sprk_contenxt.broadcast(incoming_embedding)
-        var emb_out_broadcast = sprk_contenxt.broadcast(outgoing_embeding)
+//    for (i <- 1 to iterations){
+//      for (batch <- batches){
+//        var emb_in_broadcast = sprk_contenxt.broadcast(incoming_embedding)
+//        var emb_out_broadcast = sprk_contenxt.broadcast(outgoing_embeding)
+//
+//        //calculate gradients
+////        for (k <- in_grads_local.keys) {
+////          /*
+////           * Update weights in column k of emb_in
+////           */
+////        }
+//      }
+//      //update gradients just like gradient descent
+//    }
 
-        //calculate gradients
-        for (k <- in_grads_local.keys) {
-          /*
-           * Update weights in column k of emb_in
-           */
+    def get_top_neighbours(start_node: Int) = {
+      var pred = Array[(Int,Float)]()
+
+      for (end_node <- 0 to n_nodes-1){
+        //no self-loops are allowed
+        breakable{
+          if(end_node == start_node){
+            break
+          }else{
+            //predict and add to result
+            pred :+= (end_node, incoming_embedding(::, start_node).t * outgoing_embeding(::, end_node))
+          }
         }
       }
-      //update gradients just like gradient descent
+      //take the top neighbours 10 for each node and sort by values in descending order
+      val result = pred.sortBy(_._2).takeRight(top_k).reverse
+
+      //return start node and its 10 neighbours
+      (result.map(_._1), result.map(_._2))
     }
 
   }
@@ -106,9 +130,7 @@ object Epinions {
 //    ((source, in_grads), (destination, out_grads))
 //  }
 //
-//  def get_top(source: Int, top_k: Int) = {
-//    " "
-//  }
+//
 //}
 
 object Network{
