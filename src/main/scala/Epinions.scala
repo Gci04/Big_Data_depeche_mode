@@ -43,7 +43,7 @@ object Epinions {
     println("---successful read of data---")
 
     val batch_size = 500
-    val batches =  create_batches(data, batch_size)
+    val batches = create_batches(data, batch_size)
 
     println("---successful partition of data---")
 
