@@ -69,7 +69,7 @@ def get_top_ten_neighbors (edges_ratings : Array[((Int,Int),Double)]) : Array[((
   }
   return (top_ten_overall.distinct)
 }
-// usage
+// usage example
 // var edges_rating = Array(
 //   ((0,1),12.6),
 //   ((1,2),-7.0),
@@ -109,6 +109,7 @@ def top_ten_to_nodes_representation (top_ten_overall : Array[((Int,Int),Double)]
 
   return (top_ten_in_nodes_representation)
 }
+// usage example
 // var edges_rating = Array(
 //   ((0,1),12.6),
 //   ((1,2),-7.0),
@@ -148,9 +149,10 @@ def edges_to_nodes_representation (edges : Array[(Int,Int)]) : Array[(Int, Array
 
   return (edges_nodes_representation)
 }
-var edges = Array((0,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(9,8),(3,6))
-var edges_nodes_representation = edges_to_nodes_representation(edges)
-println(edges_nodes_representation.map(x=>(x._1,'['+x._2.mkString(",")+']')).mkString("\n"))
+// usage example
+// var edges = Array((0,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(9,8),(3,6))
+// var edges_nodes_representation = edges_to_nodes_representation(edges)
+// println(edges_nodes_representation.map(x=>(x._1,'['+x._2.mkString(",")+']')).mkString("\n"))
 
 //------------------------------------------------------------------------------------------------------------------------
 // PERFORMING DEFINED STEPS IN A SEQUENCE
