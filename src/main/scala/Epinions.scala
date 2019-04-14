@@ -1,4 +1,3 @@
-//import Network.empty_m
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
@@ -43,13 +42,13 @@ object Epinions {
     val data = read_data(path_train, spark)
 //    val test = read_data(path_test, spark).repartition(10)
 
-    println("---successful read of data---")
+    println("**** successful read of data ****")
 
     val batch_size = 500
-    val batches =  create_batches(data, batch_size)
-//    val batches =  create_batches(sprk_contenxt.parallelize(data.take(30000)), batch_size)
+//    val batches =  create_batches(data, batch_size)
+    val batches =  create_batches(sprk_contenxt.parallelize(data.take(10000)), batch_size)
 
-    println("---successful partition of data---")
+    println("**** successful partition of data ****")
 
 
     //create and initialize embedding matrices
@@ -61,13 +60,12 @@ object Epinions {
     var neg_samples = 20
     //Start train
     for (i <- 1 to iterations){
-      println(i)
+      println(s"Epoch ${i}")
       for (batch <- batches){
         var emb_in_broadcast = sprk_contenxt.broadcast(incoming_embedding)
         var emb_out_broadcast = sprk_contenxt.broadcast(outgoing_embedding)
 
         //TODO: get and print loss
-
 
         val gr = batch.repartition(4).map(x => gradients(x._1,neg_samples,x._2,emb_in_broadcast.value,emb_out_broadcast.value,n_nodes))
 
@@ -78,7 +76,7 @@ object Epinions {
 
     }
 
-    println("---successful Gradient descent ---")
+    println("**** successful Gradient descent ****")
 
     def get_top_neighbours(start_node: Int) = {
       var pred = Array[(Int,Float)]()
@@ -100,9 +98,10 @@ object Epinions {
       //return start node and its 10 neighbours
       (result.map(_._1), result.map(_._2))
     }
-    //Get result and save it to txt file
+    //Get result and save it to txt file . Note : takes forever to finish dump to file
     val results = sprk_contenxt.parallelize(0 to n_nodes-1).map( x => (x, get_top_neighbours(x)))
-    results.map(x =>(x._1,x._2._1.mkString(" "))).map(x => s"${x._1}, ${x._2}").take(10).foreach(println)
+    results.map(x =>(x._1,x._2._1.mkString(" "))).map(x => s"${x._1}, ${x._2}").saveAsTextFile("results.txt")
+    results.map(x => (x._1, x._2._2.mkString(" "))).map(x => s"${x._1}, ${x._2}").saveAsTextFile("results_ratings.csv")
 
   }
 
@@ -170,7 +169,7 @@ object Epinions {
     val out = emb_out(::, destination)
     val tag = 1.0f
 
-    val act = sigma(in.t * out * tag).toFloat
+    val act = sigma(in.t * out * tag)
     val grad_in =  -tag * out * (1 - act)
     val grad_out =  -tag * in * (1 - act)
 
@@ -189,10 +188,10 @@ object Epinions {
     ((source, grad_in), (destination, grad_out))
   }
   def sigma(x:Float) = {
-    1 / (1 + Math.exp(-x))
+    1 / (1 + Math.exp(-x)).toFloat
   }
   def loss (x:Float) = {
-    -log(sigma(x))
+    -log(sigma(x)).toFloat
   }
 //  def get_loss()
 }
