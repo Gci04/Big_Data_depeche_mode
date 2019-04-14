@@ -1,3 +1,4 @@
+import os
 import sys
 import ast
 import numpy as np
@@ -5,6 +6,26 @@ import pandas as pd
 test_epin_path = input("\nPlease enter test_epin path: ")
 node_n_top_neighbors_path = input("Please enter node_n_top_neighbors path: ")
 
+nodes_top_neighbors_lst = []
+for file in os.listdir(node_n_top_neighbors_path):
+    node_n_top_neighbors_path_ = os.path.join(node_n_top_neighbors_path, file)
+    with open(node_n_top_neighbors_path_, 'r') as node_n_top_neighbors_file:
+        node_n_top_neighbors_read = node_n_top_neighbors_file.read()[:-1].split('\n')
+        node_n_top_neighbors_ = map(
+            lambda node_n_top_neighbors:
+            node_n_top_neighbors.split(', '),
+            node_n_top_neighbors_read
+        )
+        nodes_top_neighbors = pd.DataFrame(node_n_top_neighbors_, columns=['source_node', 'top_ten_recomendations'])
+        nodes_top_neighbors['source_node'] = nodes_top_neighbors['source_node'].astype(int)
+        nodes_top_neighbors['top_ten_recomendations'] = nodes_top_neighbors['top_ten_recomendations'].apply(
+            lambda top_ten_recomendations:
+            list(map(int, top_ten_recomendations.split(' ')))
+        )
+    nodes_top_neighbors_lst.append(nodes_top_neighbors)
+nodes_top_neighbors = pd.concat(nodes_top_neighbors_lst)
+
+"""
 with open(node_n_top_neighbors_path, 'r') as node_n_top_neighbors_file:
     node_n_top_neighbors_read = node_n_top_neighbors_file.read()[:-1].split('\n')
     node_n_top_neighbors_ = map(
@@ -18,6 +39,7 @@ with open(node_n_top_neighbors_path, 'r') as node_n_top_neighbors_file:
         lambda top_ten_recomendations:
         list(map(int, top_ten_recomendations.split(' ')))
     )
+"""
 
 test_epin = pd.read_csv(test_epin_path)
 
